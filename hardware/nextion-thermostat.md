@@ -23,6 +23,7 @@ You can source similar parts from AliExpress, eBay, Amazon, or other vendors.
   https://www.aliexpress.com/item/1005007549145111.html
 
 
+
 # Nextion Thermostat – Hardware & Installation
 
 This document describes the hardware, wiring, and installation process
