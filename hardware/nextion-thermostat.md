@@ -1,3 +1,28 @@
+
+## Recommended Parts & Purchase Links
+
+Below are example listings for the hardware used in this project.
+You can source similar parts from AliExpress, eBay, Amazon, or other vendors.
+
+- **Nextion 4.3" Display (NX4827P043)**  
+  https://www.aliexpress.com/item/1005007260252619.html
+
+- **ESP32-S3 Dev Board**  
+  https://www.aliexpress.com/item/1005007390162850.html
+
+- **SONOFF Zigbee USB Dongle Plus (ZBDongle-E)**  
+  https://www.aliexpress.com/item/1005007089589385.html
+
+- **SONOFF SNZB-02P Zigbee Temperature Sensor**  
+  https://www.aliexpress.com/item/1005002271970887.html
+
+- **USB-C to Bare Wires Pigtail (for power)**  
+  https://www.aliexpress.com/item/1005006968463545.html
+
+- **USB-C 35W Charger (for wall power)**  
+  https://www.aliexpress.com/item/1005007549145111.html
+
+
 # Nextion Thermostat – Hardware & Installation
 
 This document describes the hardware, wiring, and installation process
