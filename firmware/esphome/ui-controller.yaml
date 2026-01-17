@@ -1,2 +1,222 @@
-# UI ESP32: Nextion screen controller (UART) + MQTT bridge
-# Paste your working config here later.
+esphome:
+  name: thermostat
+  friendly_name: thermostat
+
+esp32:
+  board: esp32-s3-devkitc-1
+  framework:
+    type: esp-idf
+
+logger:
+
+# Home Assistant API
+# IMPORTANT: do not commit real encryption keys.
+api:
+  encryption:
+    key: !secret api_encryption_key
+
+ota:
+  - platform: esphome
+    password: !secret ota_password
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Fallback hotspot if Wi-Fi fails
+  ap:
+    ssid: "thermostat Fallback Hotspot"
+    password: !secret fallback_ap_password
+
+captive_portal:
+
+# Nextion UART (adjust pins to your wiring)
+uart:
+  rx_pin: GPIO44
+  tx_pin: GPIO43
+  baud_rate: 115200
+  id: uart_1
+
+# Data coming from Home Assistant (many of these originate from Zigbee2MQTT sensors)
+sensor:
+  - platform: homeassistant   # Room temperature
+    id: temp1
+    entity_id: sensor.ac2_temperature
+
+  - platform: homeassistant   # Room humidity
+    id: hum1
+    entity_id: sensor.ac2_humidity
+
+  - platform: homeassistant   # Target temperature (setpoint)
+    id: t_temp1
+    entity_id: sensor.target_temp
+
+  - platform: homeassistant   # External temperature (optional)
+    id: ext_temp1
+    entity_id: sensor.demo_external_temperature
+
+  - platform: homeassistant   # Weather icon number (used to set Nextion picture)
+    id: today_icon
+    entity_id: sensor.weather_condition_number
+
+  - platform: homeassistant   # Cool/Off icon number
+    id: cool_off_number1
+    entity_id: sensor.thermo_cool_off_number
+
+text_sensor:
+  - platform: homeassistant   # AC state text (ex: "Cooling", "Off")
+    id: state1
+    entity_id: sensor.thermo_state
+
+  - platform: homeassistant   # Date
+    id: date1
+    entity_id: sensor.date
+
+  - platform: homeassistant   # Time
+    id: time1
+    entity_id: sensor.time
+
+  - platform: homeassistant   # "Cool" or "Off" label
+    id: cool_off1
+    entity_id: sensor.thermo_cool_off
+
+  - platform: homeassistant   # Fan mode label
+    id: fan_mode1
+    entity_id: sensor.fan_mode
+
+# Touch events from Nextion buttons -> call Home Assistant scripts
+# IMPORTANT: these scripts must exist in Home Assistant (scripts.yaml)
+binary_sensor:
+  - platform: nextion
+    page_id: 0
+    component_id: 5
+    id: tempup1
+    on_press:
+      then:
+        - homeassistant.service:
+            service: script.tempup1
+
+  - platform: nextion
+    page_id: 0
+    component_id: 4
+    id: tempdown1
+    on_press:
+      then:
+        - homeassistant.service:
+            service: script.tempdown1
+
+  - platform: nextion
+    page_id: 0
+    component_id: 7
+    id: acoff1
+    on_press:
+      then:
+        - homeassistant.service:
+            service: script.acoff1
+
+  - platform: nextion
+    page_id: 0
+    component_id: 2
+    id: acon1
+    on_press:
+      then:
+        - homeassistant.service:
+            service: script.acon1
+
+  # Page 1 controls (modes + fan speeds)
+  - platform: nextion
+    page_id: 1
+    component_id: 2
+    id: aconsc4
+    on_press:
+      then:
+        - homeassistant.service:
+            service: script.acon1
+
+  - platform: nextion
+    page_id: 1
+    component_id: 3
+    id: drysc4
+    on_press:
+      then:
+        - homeassistant.service:
+            service: script.dry1
+
+  - platform: nextion
+    page_id: 1
+    component_id: 4
+    id: fanonlysc4
+    on_press:
+      then:
+        - homeassistant.service:
+            service: script.fanonly1
+
+  - platform: nextion
+    page_id: 1
+    component_id: 5
+    id: acoffsc4
+    on_press:
+      then:
+        - homeassistant.service:
+            service: script.acoff1
+
+  - platform: nextion
+    page_id: 1
+    component_id: 7
+    id: autosc4
+    on_press:
+      then:
+        - homeassistant.service:
+            service: script.fanauto1
+
+  - platform: nextion
+    page_id: 1
+    component_id: 9
+    id: fanlowsc4
+    on_press:
+      then:
+        - homeassistant.service:
+            service: script.fanlow1
+
+  - platform: nextion
+    page_id: 1
+    component_id: 6
+    id: fanmedsc4
+    on_press:
+      then:
+        - homeassistant.service:
+            service: script.fanmed1
+
+  - platform: nextion
+    page_id: 1
+    component_id: 8
+    id: fanhighsc4
+    on_press:
+      then:
+        - homeassistant.service:
+            service: script.fanhigh1
+
+globals:
+  - id: first_page
+    type: bool
+    restore_value: no
+  - id: current_brightness
+    type: int
+
+display:
+  - platform: nextion
+    id: thermo_screen
+    uart_id: uart_1
+    brightness: 25%
+    update_interval: 1s
+    lambda: |-
+      id(thermo_screen).set_component_text_printf("page00.t0","%.1f C",id(t_temp1).state);
+      id(thermo_screen).set_component_text_printf("page00.t1","%.1f C",id(temp1).state);
+      id(thermo_screen).set_component_text_printf("page00.t3","%.1f C",id(ext_temp1).state);
+      id(thermo_screen).set_component_text("page00.t4",id(date1).state.c_str());
+      id(thermo_screen).set_component_text("page00.t6",id(time1).state.c_str());
+      id(thermo_screen).send_command_printf("%s.pic=%.0f","page00.p2",id(today_icon).state);
+      id(thermo_screen).send_command_printf("%s.pic=%.0f","page00.p0",id(cool_off_number1).state);
+      id(thermo_screen).set_component_text_printf("page00.t2","%.0f %%", id(hum1).state);
+      id(thermo_screen).set_component_text_printf("page04.t0", "%s", id(cool_off1).state.c_str());
+      id(thermo_screen).set_component_text_printf("page04.t1", "%s", id(fan_mode1).state.c_str());
