@@ -49,3 +49,29 @@ When using the Home Assistant add-on, Zigbee2MQTT must use:
 
 ```yaml
 data_path: /config/zigbee2mqtt
+
+### MQTT configuration
+
+Zigbee2MQTT requires explicit MQTT credentials.
+
+```yaml
+mqtt:
+  server: mqtt://core-mosquitto:1883
+  user: YOUR_MQTT_USERNAME
+  password: YOUR_MQTT_PASSWORD
+  base_topic: zigbee2mqtt
+```
+## Serial configuration (ZBDongle-E)
+
+Always use the by-id serial path.
+
+```yaml
+serial:
+  port: >-
+    /dev/serial/by-id/usb-Itead_Sonoff_Zigbee_3.0_USB_Dongle_Plus_V2_XXXXXXXXXXXX-if00-port0
+  adapter: ezsp
+```
+
+Notes:
+- Use `adapter`,
+- Migration rules apply
