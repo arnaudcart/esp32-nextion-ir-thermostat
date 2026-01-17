@@ -12,19 +12,6 @@ Merge the relevant sections into your existing `configuration.yaml`.
 ## configuration.yaml (single thermostat example)
 
 ```yaml
-default_config:
-
-http:
-  ssl_certificate: /ssl/fullchain.pem
-  ssl_key: /ssl/privkey.pem
-
-frontend:
-  themes: !include_dir_merge_named themes
-
-automation: !include automations.yaml
-script: !include scripts.yaml
-scene: !include scenes.yaml
-
 sensor:
   - platform: time_date
     display_options:
