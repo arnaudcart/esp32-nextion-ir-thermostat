@@ -1,2 +1,4 @@
-# esp32-nextion-ir-thermostat
-ESPHome thermostat using ESP32 IR blaster + Nextion touchscreen (4.8") for AC control (tested with Midea IR).
+## Architecture (2x ESP32)
+- ESP32 #1: Nextion UI controller (UART to screen)
+- ESP32 #2: IR blaster controller (IR LED to AC)
+- Communication: MQTT (Mosquitto)
