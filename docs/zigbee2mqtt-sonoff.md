@@ -77,7 +77,7 @@ The IR blaster ESPHome device reads the room temperature from Home Assistant usi
 ```yaml
 sensor:
   - platform: homeassistant
-    entity_id: sensor.ac3_temperature
+    entity_id: sensor.room_temperature
 ```
 
 So your temperature sensor must appear in Home Assistant with an entity like:
