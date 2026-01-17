@@ -1,6 +1,6 @@
-<img width="600" height="600" alt="image" src="https://github.com/user-attachments/assets/6f8b3edb-b4f0-4746-b817-57615d135898" />
+<img width="245" height="206" alt="image" src="https://github.com/user-attachments/assets/6f8b3edb-b4f0-4746-b817-57615d135898" />
 <img width="245" height="206" alt="image" src="https://github.com/user-attachments/assets/e27ea1fc-3932-4ded-86e8-3be739611aa1" />
-<img width="800" height="600" alt="image" src="https://github.com/user-attachments/assets/32d49afc-11c9-4369-9ffa-5039f781d54d" />
+<img width="245" height="206" alt="image" src="https://github.com/user-attachments/assets/32d49afc-11c9-4369-9ffa-5039f781d54d" />
 
 # IR Blaster – Hardware & Installation
 
