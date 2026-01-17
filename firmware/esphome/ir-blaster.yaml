@@ -48,7 +48,7 @@ remote_transmitter:
 sensor:
   - platform: homeassistant
     id: ACIR21
-    entity_id: sensor.ac3_temperature   # CHANGE THIS to your own sensor
+    entity_id: sensor.room_temperature   # CHANGE THIS to your own sensor
     internal: true
     filters:
       - throttle: 10s
