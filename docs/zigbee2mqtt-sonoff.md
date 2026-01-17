@@ -30,9 +30,6 @@ Install:
 ### Configuration path
 When using the Home Assistant add-on, Zigbee2MQTT must use:
 
-```yaml
-data_path: /config/zigbee2mqtt
-
 ### MQTT configuration
 
 Zigbee2MQTT requires explicit MQTT credentials.
