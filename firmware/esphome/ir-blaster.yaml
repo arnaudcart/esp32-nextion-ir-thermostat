@@ -22,8 +22,11 @@ ota:
     password: !secret ota_password #this is created automatically on first flash
 
 wifi:
-  ssid: !secret wifi_ssid
-  password: !secret wifi_password #Your secret password for your wifi
+  networks:
+    - ssid: !secret wifi_ssid
+      password: !secret wifi_password #Your secret password for your wifi
+    - ssid: !secret wifi_ssid_2 #in case you have a second network
+      password: !secret wifi_password_2 #Your secret password for your wifi
 
   # Fallback hotspot if Wi-Fi fails
   ap:
