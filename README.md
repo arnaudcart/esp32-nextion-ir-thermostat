@@ -52,3 +52,12 @@ docs/
 ## License
 
 MIT
+
+## UI Preview
+
+Real screenshots of the working Nextion thermostat UI:
+
+![DSC_1036](https://github.com/user-attachments/assets/be95f118-0446-4343-809b-a0b9c348c84e)
+![WhatsApp Image 2026-01-17 at 20 42 05](https://github.com/user-attachments/assets/b0a77502-3227-4d96-ba90-27e7c3d74709)
+
+
