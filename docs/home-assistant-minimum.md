@@ -20,7 +20,7 @@ sensor:
 
 template:
   - sensor:
-      - name: "Demo external temperature"
+      - name: "external temperature"
         unit_of_measurement: "°C"
         state: "{{ state_attr('weather.forecast_home', 'temperature') }}"
 
@@ -29,7 +29,7 @@ template:
         device_class: temperature
         unit_of_measurement: "°C"
         state_class: measurement
-        state: "{{ state_attr('climate.ac_ir_11', 'temperature') }}"
+        state: "{{ state_attr('climate.ac_ir_11', 'temperature') }}" #assuming your climate entity in esphome is named ac_ir_11
 
       - name: "Weather Condition (Number)"
         state: >
@@ -58,15 +58,15 @@ template:
             'dry': 15,
             'fan_only': 14
           } %}
-          {{ hvac_mode_mapping.get(states('climate.ac_ir_11')) }}
+          {{ hvac_mode_mapping.get(states('climate.ac_ir_11')) }}  #assuming your climate entity in esphome is named ac_ir_11
 
       - name: "Thermo cool off"
-        state: "{{ states('climate.ac_ir_11') }}"
+        state: "{{ states('climate.ac_ir_11') }}"   #assuming your climate entity in esphome is named ac_ir_11
 
       - name: "Fan mode"
         state: >
-          {% if state_attr('climate.ac_ir_11', 'fan_mode') %}
-            {{ state_attr('climate.ac_ir_11', 'fan_mode') }}
+          {% if state_attr('climate.ac_ir_11', 'fan_mode') %}  #assuming your climate entity in esphome is named ac_ir_11
+            {{ state_attr('climate.ac_ir_11', 'fan_mode') }} #assuming your climate entity in esphome is named ac_ir_11
           {% else %}
             Unknown
           {% endif %}
